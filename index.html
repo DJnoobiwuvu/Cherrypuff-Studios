@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cherrypuff Studios</title>
+
+<style>
+:root{
+    --dark:#7b222f;
+    --dark2:#a74251;
+
+    --pink:#f66180;
+    --pink-light:#ff8096;
+    --pink-soft:#ffabb9;
+
+    --cream:#fff3df;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--pink-soft);
+    color:var(--dark);
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+nav{
+    position:sticky;
+    top:0;
+    background:var(--pink-soft);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    z-index:1000;
+}
+
+nav h2{
+    color:white;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+        transition:color .25s ease;
+}
+
+nav a:hover{
+    color:var(--dark2);
+}
+
+.nav-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-brand img{
+    width:42px;
+    height:42px;
+    object-fit:contain;
+}
+/* LAYOUT */
+section{
+    padding:80px 10%;
+}
+
+.hero{
+    background:linear-gradient(135deg,var(--pink-soft),var(--pink));
+    text-align:center;
+    min-height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.hero img{
+    width:min(900px, 90%);
+    margin-bottom:20px;
+
+    filter:drop-shadow(
+        0 8px 20px rgba(0,0,0,.35)
+    );
+}
+
+.hero p{
+    max-width:600px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+/* BUTTON */
+.button{
+    display:inline-block;
+    padding:14px 28px;
+    background:var(--dark2);
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    transition:all .25s ease;
+}
+
+.button:hover{
+    transform:scale(1.08);
+    color:var(--pink-light);
+}
+
+/* SECTIONS */
+.alt{
+    background:linear-gradient(135deg,var(--pink-soft),var(--pink-light));
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2rem;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:50px;
+}
+
+/* CARDS */
+.card{
+    background:var(--cream);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+
+
+.card > *{
+    margin-bottom: 10px;
+}
+
+/* =========================
+   ART PORTFOLIO (NEW)
+   ========================= */
+
+.art-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:35px;
+}
+
+.art-grid img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.art-grid img:hover{
+    transform:scale(1.03);
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(8px);
+    z-index:9999;
+}
+
+.modal-content{
+    display:inline-block;
+    width:auto;
+    max-width:900px;
+    text-align:center;
+    color: #ffffff;
+}
+
+.modal-content img{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    margin:15px 0;
+}
+/* =========================
+   MUSIC PLAYER
+   ========================= */
+
+#playersContainer{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:110px;
+    justify-items:center;
+    margin-top:40px;
+    transition: transform 0.25s ease;
+
+    transform: translateX(-70px);
+}
+
+.music-player{
+    position:relative;
+    display:inline-block;
+    user-select:none;
+    margin-bottom:0px;
+    transition: transform 0.35s ease;
+}
+
+.scale-wrapper{
+    position:relative;
+    width:220px;
+    height:220px;
+}
+
+.disc-wrapper{
+    position:absolute;
+    top:8%;
+    left:8%;
+    width:84%;
+    height:84%;
+    border-radius:50%;
+    z-index:1;
+    transition:transform .35s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.disc{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:url("vinyl.png") center/cover no-repeat;
+}
+
+.music-player:hover .disc-wrapper{
+    transform:translateX(110px);
+}
+
+.music-player:hover {
+    transform: translateY(-6px);
+}
+.cover{
+    position:relative;
+    width:100%;
+    height:100%;
+    border-radius:7.5px;
+    overflow:hidden;
+    z-index:2;
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.play-btn{
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    background:rgba(0,0,0,0);
+    opacity:0;
+    transition:.25s;
+}
+
+.music-player:hover .play-btn{
+    opacity:1;
+    background:rgba(0,0,0,.4);
+}
+
+.play-btn img{
+    width:64px;
+    height:64px;
+    cursor:pointer;
+}
+
+.track-title{
+    position:absolute;
+    top:12px;
+    left:12px;
+    color:white;
+    font-size:.8rem;
+    opacity:0;
+    z-index:3;
+}
+
+.time{
+    position:absolute;
+    bottom:28px;
+    left:12px;
+    color:white;
+    font-size:.75rem;
+    opacity:0;
+    z-index:3;
+}
+
+.progress-bar{
+    position:absolute;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    height:6px;
+    background:rgba(255,255,255,.3);
+    border-radius:999px;
+    overflow:hidden;
+    opacity:0;
+    z-index:3;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:white;
+}
+
+.music-player:hover .track-title,
+.music-player:hover .time,
+.music-player:hover .progress-bar{
+    opacity:1;
+}
+
+.music-player.playing {
+    transform: translateX(60px);
+}
+/* Mobile */
+
+@media (max-width:1200px){
+    #playersContainer{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media (max-width:900px){
+    #playersContainer{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media (max-width:600px){
+    #playersContainer{
+        grid-template-columns:1fr;
+    }
+}
+/* CONTACT + FOOTER */
+.contact{
+    text-align:center;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:var(--dark2);
+    color:white;
+}
+
+.social-link{
+    color: var(--dark);
+    font-weight: bold;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.social-link:hover{
+    color: var(--pink);
+}
+
+/*header*/
+.portfolio-header{
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 8px;
+}
+
+.contact-block{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    margin-top:10px;
+}
+
+.email{
+    cursor:pointer;
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.email:hover {
+    opacity: 0.7;
+}
+
+#copyMessage{
+    opacity:0;
+    transition:.25s;
+    margin-top:0;
+    color:#7b222f;
+    font-size:.9rem;
+}
+
+.socials{
+    display:flex;
+    gap:25px;
+    margin-top:6px;
+}
+
+.socials a{
+    color:var(--dark);
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.socials a:hover{
+    color:var(--pink);
+}
+
+</style>
+</head>
+
+<body>
+<nav>
+    <div class="nav-brand">
+
+    <img src="logo.png" alt="logo">
+
+    <h2>Cherrypuff Studios</h2>
+
+</div>
+
+    <ul>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#commissions">Commissions</a></li>
+        <li><a href="#policies">Policies</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <img src="textlogo.png" alt="Cherrypuff Studios Logo">
+  
+    <p>
+        Custom Human-Made Art & Music by DJ Noob.
+    </p>
+
+    <a class="button" href="https://tally.so/r/VLD1lN" target="_blank">
+        Request a Commission
+    </a>
+
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="alt">
+
+    <h2 class="section-title portfolio-header" style="margin-top:0px;">
+        Art Portfolio
+    </h2>
+
+    <br><br>
+
+    <!-- ART GRID -->
+    <div class="art-grid">
+
+        <img src="Portfolio/Art/Mochi PFP.png"
+        onclick="openArt('Portfolio/Art/Mochi PFP.png','Mochi','Custom Profile Picture')">
+
+        <img src="Portfolio/Art/DJ Noob PFP.png"
+        onclick="openArt('Portfolio/Art/DJ Noob PFP.png','DJ Noob','Custom Profile Picture')">
+
+        <img src="Portfolio/Art/Haha!!! Sticker.png"
+        onclick="openArt('Portfolio/Art/Haha!!! Sticker.png','Haha!!!','Custom Static Sticker')">
+
+        <img src="Portfolio/Art/Impyro Sticker.png"
+        onclick="openArt('Portfolio/Art/Impyro Sticker.png','Impyro','Custom Static Sticker')">
+
+        <img src="Portfolio/Art/Pyro Torso-Up Drawing.png"
+        onclick="openArt('Portfolio/Art/Pyro Torso-Up Drawing.png','Pyro','Torso-Up Character Illustration')">
+
+        <img src="Portfolio/Art/Jupes Full-Body Drawing.png"
+        onclick="openArt('Portfolio/Art/Jupes Full-Body Drawing.png','Jupes','Full-Body Character Illustration')">
+
+        <img src="Portfolio/Art/Bubblegum Cover.PNG"
+        onclick="openArt('Portfolio/Art/Bubblegum Cover.PNG','Bubblegum Cover (Sakari)','Custom Album Cover Artwork')">
+
+        <img src="Portfolio/Art/WHERE YOU AT Cover.png"
+        onclick="openArt('Portfolio/Art/WHERE YOU AT Cover.png','WHERE YOU AT Cover (DJ Noob)','Custom Album Cover Artwork')">
+
+    </div>
+<h2 class="section-title portfolio-header" style="margin-top:50px;">
+    Music Portfolio
+</h2>
+
+<div id="playersContainer"></div>
+</section>
+
+<!-- COMMISSIONS -->
+<section id="commissions">
+
+    <h2 class="section-title">Commissions</h2>
+
+    <div class="grid">
+
+        <!-- ART -->
+
+        <div class="card">
+            <h3>Custom Profile Picture</h3>
+            <p><b>$12</b></p>
+            <p>4 Day Turnaround</p>
+            <p>1 Revision</p>
+            <p>Custom profile picture/icon of any character</p>
+        </div>
+
+        <div class="card">
+            <h3>Custom Static Sticker</h3>
+            <p><b>$10</b></p>
+            <p>3 Day Turnaround</p>
+            <p>1 Revision</p>
+            <p>Simple sticker-style drawing with a specific expression</p>
+        </div>
+
+        <div class="card">
+            <h3>Torso-Up Character Illustration</h3>
+            <p><b>$20</b></p>
+            <p>6 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Any character drawn from the waist up with any pose and expression</p>
+        </div>
+
+        <div class="card">
+            <h3>Full-Body Character Illustration</h3>
+            <p><b>$30</b></p>
+            <p>8 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Full character design with custom pose, outfit, and other details</p>
+        </div>
+
+        <div class="card">
+            <h3>Custom Album Cover Art</h3>
+            <p><b>$35–$40</b></p>
+            <p>7–10 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Custom cover artwork for EPs, singles, or albums</p>
+        </div>
+
+        <!-- MUSIC -->
+
+        <div class="card">
+            <h3>Custom 24-Bar Beat</h3>
+            <p><b>$15</b></p>
+            <p>3 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Loopable beat for artists to build songs from (with included stems)</p>
+        </div>
+
+        <div class="card">
+            <h3>Custom Background Instrumental</h3>
+            <p><b>$15</b></p>
+            <p>3 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Full instrumental made for YouTube videos or other similar projects (1–3 minutes)</p>
+        </div>
+
+        <div class="card">
+            <h3>Custom Remix/Flip</h3>
+            <p><b>$15</b></p>
+            <p>3 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>1–2 minute flip of any song in any genre (Hoodtrap, PluggnB, etc.)</p>
+        </div>
+
+        <div class="card">
+            <h3>Custom Jingle/Theme Tune</h3>
+            <p><b>$15</b></p>
+            <p>3 Day Turnaround</p>
+            <p>2 Revisions</p>
+            <p>Short customized theme song for your brand (15–45 sec)</p>
+        </div>
+
+<div class="card">
+    <h3>More Coming Soon</h3>
+    <p>Additional services will be added in the future.</p>
+</div>
+
+</div> <!-- CLOSE THE GRID HERE -->
+
+<div style="text-align:center; margin-top:40px;">
+    <a href="https://tally.so/r/VLD1lN" class="button" target="_blank">
+        Request a Commission
+    </a>
+</div>
+
+</section>
+
+<!-- POLICIES -->
+<section id="policies" class="alt">
+
+    <h2 class="section-title">Policies</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Payment</h3>
+            <p>Payment must be received before work begins.</p>
+        </div>
+
+        <div class="card">
+            <h3>Revisions</h3>
+            <p>Revisions depend on the service purchased.</p>
+        </div>
+
+ <div class="card">
+            <h3>Turnaround Times</h3>
+            <p>Times are estimates and may vary slightly.</p>
+        </div>
+
+        <div class="card">
+            <h3>Prices</h3>
+            <p>Prices are starting estimates and may vary depending on project complexity.</p>
+        </div>
+
+        <div class="card">
+            <h3>Bigger Projects</h3>
+            <p>Feel free to contact me through the email below to discuss larger projects, including full-length song production, custom packages, or other creative collaborations.</p>
+        </div>
+
+
+    </div>
+
+      <center>
+        <div style="text-align:center; margin-top:40px;"></div>
+        <a href="https://docs.google.com/document/d/1_IA_7MimCrJe4in_0z6MJzTr0S29DCq0MgYORy6I4ck/edit?usp=sharing"
+           class="button"
+           target="_blank">
+
+           View Full Policies
+
+        </a>
+        
+    </center>
+
+</section>
+
+
+<section id="contact">
+
+    <h2 class="section-title">Contact</h2>
+
+    <div class="contact-block">
+
+        <p>
+            Email:
+            <span id="emailCopy"
+                  class="email">
+                djnoob@gmail.com
+            </span>
+        </p>
+
+        <p id="copyMessage">Copied!</p>
+
+        <div class="socials">
+            <a href="https://soundcloud.com/djnoobiwuvu" target="_blank">SoundCloud</a>
+            <a href="https://youtube.com/@djnoobiwuvu" target="_blank">YouTube</a>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Cherrypuff Studios
+</footer>
+
+<!-- MODAL -->
+<div id="artModal" class="modal" onclick="closeArt()">
+
+    <div class="modal-content" onclick="event.stopPropagation()">
+
+        <h2 id="artTitle"></h2>
+        <img id="artImage">
+        <p id="artDesc"></p>
+
+    </div>
+
+</div>
+
+<script>
+
+function openArt(img,title,desc){
+    document.getElementById("artModal").style.display="flex";
+    document.getElementById("artImage").src=img;
+    document.getElementById("artTitle").innerText=title;
+    document.getElementById("artDesc").innerText=desc;
+}
+
+function closeArt(){
+    document.getElementById("artModal").style.display="none";
+}
+
+// =========================
+// MUSIC PLAYER
+// =========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const tracks = [
+
+        {
+            title:"Chill Pluggnb Beat",
+            file:"Portfolio/Music/Pluggnb Beat.wav",
+            cover:"Portfolio/Covers/pluggnbcover.png"
+        },
+
+        {
+            title:"Bubbly Drum & Bass Beat",
+            file:"Portfolio/Music/Bubbly DnB Beat.wav",
+            cover:"Portfolio/Covers/dnbcover.png"
+        },
+
+        {
+            title:"Internet Money Trap Beat",
+            file:"Portfolio/Music/Internet Money Beat.wav",
+            cover:"Portfolio/Covers/internetmoneycover.png"
+        },
+
+        {
+            title:"Underground Rage/Hyperpop Beat",
+            file:"Portfolio/Music/Underground Rage x Hyperpop Beat.wav",
+            cover:"Portfolio/Covers/ragecover.png"
+        },
+
+        {
+            title:"Did It First Phonk Remix",
+            file:"Portfolio/Music/Did It First Phonk Remix.wav",
+            cover:"Portfolio/Covers/diditfirstcover.png"
+        },
+
+        {
+            title:"Notion Lofi Remix",
+            file:"Portfolio/Music/Notion (Lofi Remix).wav",
+            cover:"Portfolio/Covers/notionloficover.png"
+        },
+
+        {
+            title:"BODY Hoodtrap Remix",
+            file:"Portfolio/Music/BODY Hoodtrap Remix.wav",
+            cover:"Portfolio/Covers/bodyhoodtrapcover.png"
+        },
+
+        {
+            title:"Cherrypuff Jingle",
+            file:"Portfolio/Music/Cherrypuff Jingle.wav",
+            cover:"Portfolio/Covers/cherrypuffcover.png"
+        }
+
+    ];
+
+    let currentPlayer = null;
+
+    const container =
+        document.getElementById("playersContainer");
+
+    tracks.forEach(track => {
+
+        const playerDiv = document.createElement("div");
+        playerDiv.classList.add("music-player");
+
+        playerDiv.innerHTML = `
+            <div class="scale-wrapper">
+
+                <div class="disc-wrapper">
+                    <div class="disc"></div>
+                </div>
+
+                <div class="cover">
+
+                    <img src="${track.cover}">
+
+                    <div class="track-title">
+                        ${track.title}
+                    </div>
+
+                    <div class="play-btn">
+                        <img src="play.png">
+                    </div>
+
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <div class="time">
+                    0:00 / 0:00
+                </div>
+
+                <audio preload="metadata">
+                    <source src="${track.file}" type="audio/wav">
+                </audio>
+
+            </div>
+        `;
+
+        container.appendChild(playerDiv);
+
+        const audio =
+            playerDiv.querySelector("audio");
+            audio.loop = true;
+
+        const cover =
+            playerDiv.querySelector(".cover");
+
+        const playIcon =
+            playerDiv.querySelector(".play-btn img");
+
+        const progressBar =
+            playerDiv.querySelector(".progress-bar");
+
+        const progressFill =
+            playerDiv.querySelector(".progress-fill");
+
+        const timeLabel =
+            playerDiv.querySelector(".time");
+
+        const discWrapper =
+            playerDiv.querySelector(".disc-wrapper");
+
+        const disc =
+            playerDiv.querySelector(".disc");
+
+        let playing = false;
+        let rotation = 0;
+        let spinFrame = null;
+
+        function formatTime(sec){
+
+            if(isNaN(sec)) return "0:00";
+
+            const m = Math.floor(sec/60);
+            const s = Math.floor(sec%60);
+
+            return `${m}:${s.toString().padStart(2,"0")}`;
+        }
+
+        function stopCompletely(){
+
+            audio.pause();
+            audio.currentTime = 0;
+
+            playing = false;
+
+            playerDiv.classList.remove("playing");
+
+            playIcon.src = "play.png";
+
+            progressFill.style.width = "0%";
+
+            cancelAnimationFrame(spinFrame);
+
+            rotation = 0;
+
+            disc.style.transform =
+                "rotate(0deg)";
+                
+            discWrapper.style.removeProperty("transform");
+
+            playerDiv.classList.remove("playing");
+        }
+
+        playerDiv.stopCompletely =
+            stopCompletely;
+
+        audio.addEventListener(
+            "loadedmetadata",
+            () => {
+                timeLabel.textContent =
+                    `0:00 / ${formatTime(audio.duration)}`;
+            }
+        );
+
+const playBtn =
+    playerDiv.querySelector(".play-btn");
+
+playBtn.addEventListener("click", async (e) => {
+
+    e.stopPropagation();
+
+    if(
+        currentPlayer &&
+        currentPlayer !== playerDiv
+    ){
+        currentPlayer.stopCompletely();
+    }
+
+    if(!playing){
+
+        await audio.play();
+
+        playing = true;
+
+        currentPlayer = playerDiv;
+
+        playIcon.src = "pause.png";
+
+        discWrapper.style.transform =
+            "translateX(110px)";
+
+        startSpinning();
+
+    }else{
+
+        stopCompletely();
+
+        currentPlayer = null;
+    }
+});
+        audio.addEventListener(
+            "timeupdate",
+            () => {
+
+                const percent =
+                    (audio.currentTime/audio.duration)*100;
+
+                progressFill.style.width =
+                    percent + "%";
+
+                timeLabel.textContent =
+                    `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+            }
+        );
+
+        function startSpinning(){
+
+    cancelAnimationFrame(spinFrame);
+
+    function spin(){
+
+        rotation += 1.25;
+
+        disc.style.transform =
+            `rotate(${rotation}deg)`;
+
+        spinFrame =
+            requestAnimationFrame(spin);
+    }
+
+    spin();
+}
+// =========================
+// SCRUBBING
+// =========================
+
+let isScrubbing = false;
+let wasPlaying = false;
+
+progressBar.addEventListener("mousedown", (e) => {
+
+    isScrubbing = true;
+
+    wasPlaying = !audio.paused;
+
+    audio.muted = true;
+
+    cancelAnimationFrame(spinFrame);
+
+    updateScrub(e);
+});
+
+document.addEventListener("mousemove", (e) => {
+
+    if(isScrubbing){
+        updateScrub(e);
+    }
+
+});
+
+document.addEventListener("mouseup", () => {
+
+    if(isScrubbing){
+
+        isScrubbing = false;
+
+        audio.muted = false;
+
+        if(wasPlaying && playing){
+    startSpinning();
+}
+
+    }
+
+});
+
+function updateScrub(e){
+
+    const rect =
+        progressBar.getBoundingClientRect();
+
+    let percent =
+        (e.clientX - rect.left) / rect.width;
+
+    percent =
+        Math.max(0, Math.min(1, percent));
+
+    audio.currentTime =
+        percent * audio.duration;
+
+    progressFill.style.width =
+        (percent * 100) + "%";
+}
+
+    });
+
+    const emailCopy =
+    document.getElementById("emailCopy");
+
+const copyMessage =
+    document.getElementById("copyMessage");
+
+emailCopy.addEventListener("click", async () => {
+
+    await navigator.clipboard.writeText(
+        "djnoob@gmail.com"
+    );
+
+    copyMessage.style.opacity = "1";
+
+    setTimeout(() => {
+        copyMessage.style.opacity = "0";
+    }, 1500);
+});
+});
+
+</script>
+</body>
+</html>
